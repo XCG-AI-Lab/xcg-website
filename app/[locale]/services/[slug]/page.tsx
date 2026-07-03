@@ -74,7 +74,7 @@ export default async function ServicePage({
       <section className="relative overflow-hidden bg-ink-950">
         <div aria-hidden="true" className="absolute right-0 top-0 h-[3px] w-1/3 bg-gold-400" />
         <div className="mx-auto max-w-[1320px] px-5 py-24 sm:px-8">
-          <Reveal>
+          <div className="rise">
             <p className="eyebrow-light !text-gold-400">
               {isZh ? stages[service.stage].labelZh : stages[service.stage].label}
             </p>
@@ -92,7 +92,7 @@ export default async function ServicePage({
                 {t.nav.pricing}
               </Link>
             </div>
-          </Reveal>
+          </div>
         </div>
       </section>
 

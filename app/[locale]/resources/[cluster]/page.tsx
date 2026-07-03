@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import JsonLd from "@/components/JsonLd";
 import CtaSection from "@/components/CtaSection";
-import Reveal from "@/components/Reveal";
 import { getDict } from "@/lib/i18n";
 import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import { getArticlesByCluster, clusters } from "@/content/articles";
@@ -63,7 +62,7 @@ export default async function ClusterPage({
       <section className="relative overflow-hidden bg-ink-950">
         <div aria-hidden="true" className="absolute right-0 top-0 h-[3px] w-1/3 bg-gold-400" />
         <div className="mx-auto max-w-[1320px] px-5 py-24 sm:px-8">
-          <Reveal>
+          <div className="rise">
             <Link href={p("/resources")} className="eyebrow-light !text-gold-400 hover:underline">
               ← {t.nav.resources}
             </Link>
@@ -72,7 +71,7 @@ export default async function ClusterPage({
             <p className="mt-4 text-[14px] text-ink-500">
               {clusterArticles.length} {t.resources.inThisCluster}
             </p>
-          </Reveal>
+          </div>
         </div>
       </section>
 

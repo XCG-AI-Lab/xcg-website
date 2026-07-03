@@ -82,11 +82,11 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
       <section className="relative overflow-hidden bg-ink-950">
         <div aria-hidden="true" className="absolute right-0 top-0 h-[3px] w-1/3 bg-gold-400" />
         <div className="mx-auto max-w-[1320px] px-5 py-24 sm:px-8">
-          <Reveal>
+          <div className="rise">
             <p className="eyebrow-light !text-gold-400">{t.nav.careers}</p>
             <h1 className="display-1 mt-6 max-w-4xl text-white">{t.careers.title}</h1>
             <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink-300">{t.careers.subtitle}</p>
-          </Reveal>
+          </div>
         </div>
       </section>
 

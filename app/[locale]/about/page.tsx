@@ -47,11 +47,11 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <section className="relative overflow-hidden bg-ink-950">
         <div aria-hidden="true" className="absolute right-0 top-0 h-[3px] w-1/3 bg-gold-400" />
         <div className="mx-auto max-w-[1320px] px-5 py-24 sm:px-8 lg:py-32">
-          <Reveal>
+          <div className="rise">
             <p className="eyebrow-light !text-gold-400">{t.nav.about}</p>
             <h1 className="display-1 mt-6 max-w-4xl text-white">{t.about.title}</h1>
             <p className="mt-8 max-w-3xl text-lg leading-relaxed text-ink-300 sm:text-xl">{t.about.story}</p>
-          </Reveal>
+          </div>
         </div>
       </section>
 

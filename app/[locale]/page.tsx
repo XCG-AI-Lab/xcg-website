@@ -64,11 +64,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </div>
 
         <div className="relative mx-auto max-w-[1320px] px-5 py-24 sm:px-8 lg:py-36">
-          <Reveal>
+          <div className="rise">
             <p className="eyebrow-light !text-gold-400">{t.hero.eyebrow}</p>
             <h1 className="display-1 mt-6 max-w-5xl text-white">{t.hero.title}</h1>
-          </Reveal>
-          <Reveal delay={120}>
+          </div>
+          <div className="rise" style={{ animationDelay: "120ms" }}>
             <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink-300 sm:text-xl">
               {t.hero.subtitle}
             </p>
@@ -80,10 +80,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 {t.hero.ctaSecondary}
               </Link>
             </div>
-          </Reveal>
+          </div>
 
           {/* Awards strip */}
-          <Reveal delay={200}>
+          <div className="rise" style={{ animationDelay: "200ms" }}>
             <div className="mt-24 border-t border-white/10 pt-8">
               <p className="eyebrow-light">{t.hero.trustLine}</p>
               <ul className="mt-5 grid gap-x-10 gap-y-4 sm:grid-cols-3">
@@ -97,7 +97,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 ))}
               </ul>
             </div>
-          </Reveal>
+          </div>
         </div>
       </section>
 
