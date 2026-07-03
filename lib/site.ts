@@ -1,5 +1,5 @@
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://xcg-website.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://xcg-website-beta.vercel.app";
 
 export const site = {
   name: "X Consultancy Group",
