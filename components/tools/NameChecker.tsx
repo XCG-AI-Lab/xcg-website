@@ -49,7 +49,7 @@ export default function NameChecker({ locale }: { locale: Locale }) {
 
   return (
     <div>
-      <label htmlFor="name-input" className="font-semibold text-ink-900">
+      <label htmlFor="name-input" className="font-display font-bold text-ink-950">
         {isZh ? "输入您想要的公司名称" : "Enter your proposed company name"}
       </label>
       <div className="mt-3 flex flex-col gap-2 sm:flex-row">
@@ -62,13 +62,13 @@ export default function NameChecker({ locale }: { locale: Locale }) {
           }}
           placeholder={isZh ? "例如：Tech Ventures" : "e.g. Tech Ventures"}
           maxLength={120}
-          className="w-full rounded-lg border border-ink-200 px-4 py-3 text-sm"
+          className="field"
         />
         <button
           type="button"
           disabled={!trimmed}
           onClick={() => setChecked(true)}
-          className="shrink-0 rounded-lg bg-gold-400 px-6 py-3 text-sm font-bold text-ink-900 hover:bg-gold-300 disabled:opacity-50"
+          className="btn-gold shrink-0 disabled:opacity-50"
         >
           {isZh ? "预检名称" : "Pre-check name"}
         </button>
@@ -77,8 +77,8 @@ export default function NameChecker({ locale }: { locale: Locale }) {
       {checked && trimmed && (
         <div className="mt-8 space-y-6">
           {issues.length === 0 ? (
-            <div className="rounded-2xl bg-green-100 p-6 text-green-900">
-              <p className="font-display font-bold">
+            <div className="border-l-[3px] border-green-700 bg-green-50 p-7 text-green-900">
+              <p className="font-display text-lg font-bold tracking-tight">
                 {isZh ? "初步检查通过 ✓" : "Passes the preliminary checks ✓"}
               </p>
               <p className="mt-2 text-sm">
@@ -89,8 +89,8 @@ export default function NameChecker({ locale }: { locale: Locale }) {
               </p>
             </div>
           ) : (
-            <div className="rounded-2xl bg-gold-100 p-6 text-ink-900">
-              <p className="font-display font-bold">
+            <div className="border-l-[3px] border-gold-500 bg-gold-50 p-7 text-ink-900">
+              <p className="font-display text-lg font-bold tracking-tight">
                 {isZh ? "发现潜在问题" : "Potential issues found"}
               </p>
               <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">
@@ -112,15 +112,15 @@ export default function NameChecker({ locale }: { locale: Locale }) {
             }
             buttonLabel={isZh ? "为我查询这个名称" : "Run the official search for me"}
           >
-            <div className="rounded-2xl border border-gold-300 bg-white p-6 text-sm text-ink-700">
-              <p className="font-display font-bold text-ink-900">
+            <div className="border border-ink-200 p-8 text-sm text-ink-700">
+              <p className="font-display text-lg font-bold tracking-tight text-ink-950">
                 {isZh ? "请求已收到！" : "Request received!"}
               </p>
               <p className="mt-2">
                 {isZh
                   ? `我们将针对 “${trimmed}” 进行正式SSM名称查询，并在一个工作日内回复结果——包括名称保留选项。`
                   : `We'll run an official SSM search for “${trimmed}” and reply within one working day — including your name-reservation options.`}{" "}
-                <Link href={`/${locale}/services/company-secretarial`} className="font-bold text-gold-700 hover:text-gold-800">
+                <Link href={`/${locale}/services/company-secretarial`} className="font-bold text-ink-950 underline decoration-gold-400 decoration-2 underline-offset-4">
                   {isZh ? "了解公司注册服务 →" : "See our incorporation service →"}
                 </Link>
               </p>

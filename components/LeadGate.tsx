@@ -44,9 +44,9 @@ export default function LeadGate({
   if (unlocked) return <>{children}</>;
 
   return (
-    <div className="rounded-2xl border-2 border-dashed border-gold-300 bg-gold-50/50 p-6">
-      <p className="font-display font-bold text-ink-900">{title}</p>
-      <form onSubmit={submit} className="mt-4 grid gap-3 sm:grid-cols-2">
+    <div className="border-l-[3px] border-gold-400 bg-ink-50 p-8">
+      <p className="font-display text-lg font-bold tracking-tight text-ink-950">{title}</p>
+      <form onSubmit={submit} className="mt-6 grid gap-4 sm:grid-cols-2">
         <label className="sr-only" htmlFor={`lg-name-${tool}`}>Name</label>
         <input
           id={`lg-name-${tool}`}
@@ -54,7 +54,7 @@ export default function LeadGate({
           onChange={(e) => setName(e.target.value)}
           placeholder={locale === "zh" ? "您的姓名" : "Your name"}
           required
-          className="rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm"
+          className="field"
         />
         <label className="sr-only" htmlFor={`lg-email-${tool}`}>Email</label>
         <input
@@ -64,17 +64,17 @@ export default function LeadGate({
           onChange={(e) => setEmail(e.target.value)}
           placeholder={locale === "zh" ? "您的电子邮箱" : "Your email address"}
           required
-          className="rounded-lg border border-ink-200 bg-white px-4 py-2.5 text-sm"
+          className="field"
         />
         <button
           type="submit"
           disabled={status === "sending"}
-          className="rounded-lg bg-gold-400 px-5 py-2.5 text-sm font-bold text-ink-900 hover:bg-gold-300 disabled:opacity-60 sm:col-span-2"
+          className="btn-gold justify-center disabled:opacity-60 sm:col-span-2"
         >
-          {status === "sending" ? "…" : buttonLabel}
+          {status === "sending" ? "…" : buttonLabel} <span aria-hidden="true">→</span>
         </button>
       </form>
-      <p className="mt-2 text-xs text-ink-500">
+      <p className="mt-3 text-[13px] text-ink-500">
         {locale === "zh"
           ? "我们仅用您的邮箱发送结果和相关更新，绝无垃圾邮件。"
           : "We'll only use your email to send your results and relevant updates. No spam, ever."}

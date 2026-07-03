@@ -30,50 +30,49 @@ export default function ContactForm({ locale }: { locale: Locale }) {
 
   if (status === "done") {
     return (
-      <div className="rounded-2xl border border-gold-300 bg-gold-50 p-8 text-center" role="status">
-        <p className="text-lg font-semibold text-ink-900">{t.contact.formSuccess}</p>
+      <div className="border-l-[3px] border-gold-400 bg-ink-50 p-8" role="status">
+        <p className="font-display text-lg font-bold text-ink-950">{t.contact.formSuccess}</p>
       </div>
     );
   }
 
-  const inputCls =
-    "w-full rounded-lg border border-ink-200 px-4 py-3 text-sm text-ink-900 placeholder:text-ink-400 focus:border-gold-500";
+  const labelCls = "mb-2 block text-[13px] font-bold uppercase tracking-wider text-ink-700";
 
   return (
-    <form onSubmit={submit} className="space-y-4">
-      <div className="grid gap-4 sm:grid-cols-2">
+    <form onSubmit={submit} className="space-y-6">
+      <div className="grid gap-6 sm:grid-cols-2">
         <div>
-          <label htmlFor="cf-name" className="mb-1 block text-sm font-semibold text-ink-800">
+          <label htmlFor="cf-name" className={labelCls}>
             {t.contact.formName} *
           </label>
-          <input id="cf-name" name="name" required maxLength={120} className={inputCls} />
+          <input id="cf-name" name="name" required maxLength={120} className="field" />
         </div>
         <div>
-          <label htmlFor="cf-phone" className="mb-1 block text-sm font-semibold text-ink-800">
+          <label htmlFor="cf-phone" className={labelCls}>
             {t.contact.formPhone} *
           </label>
-          <input id="cf-phone" name="phone" type="tel" required maxLength={30} className={inputCls} />
+          <input id="cf-phone" name="phone" type="tel" required maxLength={30} className="field" />
         </div>
       </div>
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-6 sm:grid-cols-2">
         <div>
-          <label htmlFor="cf-email" className="mb-1 block text-sm font-semibold text-ink-800">
+          <label htmlFor="cf-email" className={labelCls}>
             {t.contact.formEmail} *
           </label>
-          <input id="cf-email" name="email" type="email" required maxLength={200} className={inputCls} />
+          <input id="cf-email" name="email" type="email" required maxLength={200} className="field" />
         </div>
         <div>
-          <label htmlFor="cf-company" className="mb-1 block text-sm font-semibold text-ink-800">
+          <label htmlFor="cf-company" className={labelCls}>
             {t.contact.formCompany}
           </label>
-          <input id="cf-company" name="company" maxLength={200} className={inputCls} />
+          <input id="cf-company" name="company" maxLength={200} className="field" />
         </div>
       </div>
       <div>
-        <label htmlFor="cf-service" className="mb-1 block text-sm font-semibold text-ink-800">
+        <label htmlFor="cf-service" className={labelCls}>
           {t.contact.formService}
         </label>
-        <select id="cf-service" name="service" className={inputCls} defaultValue="">
+        <select id="cf-service" name="service" className="field" defaultValue="">
           <option value="">—</option>
           {services.map((s) => (
             <option key={s.slug} value={s.slug}>
@@ -83,22 +82,19 @@ export default function ContactForm({ locale }: { locale: Locale }) {
         </select>
       </div>
       <div>
-        <label htmlFor="cf-message" className="mb-1 block text-sm font-semibold text-ink-800">
+        <label htmlFor="cf-message" className={labelCls}>
           {t.contact.formMessage} *
         </label>
-        <textarea id="cf-message" name="message" required rows={5} maxLength={5000} className={inputCls} />
+        <textarea id="cf-message" name="message" required rows={5} maxLength={5000} className="field" />
       </div>
       {/* Honeypot */}
       <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
-      <button
-        type="submit"
-        disabled={status === "sending"}
-        className="w-full rounded-lg bg-gold-400 px-6 py-3.5 font-bold text-ink-900 shadow hover:bg-gold-300 disabled:opacity-60 sm:w-auto"
-      >
-        {status === "sending" ? t.contact.formSending : t.contact.formSubmit}
+      <button type="submit" disabled={status === "sending"} className="btn-gold disabled:opacity-60">
+        {status === "sending" ? t.contact.formSending : t.contact.formSubmit}{" "}
+        <span aria-hidden="true">→</span>
       </button>
       {status === "error" && (
-        <p role="alert" className="text-sm font-medium text-red-600">
+        <p role="alert" className="text-sm font-bold text-red-600">
           {t.contact.formError}
         </p>
       )}

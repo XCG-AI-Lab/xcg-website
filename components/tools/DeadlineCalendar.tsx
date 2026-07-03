@@ -77,14 +77,14 @@ export default function DeadlineCalendar({ locale }: { locale: Locale }) {
   }
 
   const btn = (active: boolean) =>
-    `rounded-lg border px-4 py-2 text-sm ${
-      active ? "border-gold-500 bg-gold-50 font-semibold text-ink-900" : "border-ink-200 text-ink-700 hover:border-gold-300"
+    `border px-4 py-2.5 text-sm transition-colors ${
+      active ? "border-ink-950 bg-ink-950 font-bold text-white" : "border-ink-300 text-ink-700 hover:border-ink-950"
     }`;
 
   return (
     <div>
       <fieldset className="mt-6">
-        <legend className="font-semibold text-ink-900">
+        <legend className="font-display font-bold text-ink-950">
           1. {isZh ? "您的财政年度结束月份？" : "When does your financial year end?"}
         </legend>
         <div className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-6">
@@ -97,7 +97,7 @@ export default function DeadlineCalendar({ locale }: { locale: Locale }) {
       </fieldset>
 
       <fieldset className="mt-6">
-        <legend className="font-semibold text-ink-900">2. {isZh ? "您有员工吗？" : "Do you have employees?"}</legend>
+        <legend className="font-display font-bold text-ink-950">2. {isZh ? "您有员工吗？" : "Do you have employees?"}</legend>
         <div className="mt-3 flex gap-2">
           <button type="button" onClick={() => setHasEmployees(true)} className={btn(hasEmployees === true)}>
             {isZh ? "有" : "Yes"}
@@ -109,7 +109,7 @@ export default function DeadlineCalendar({ locale }: { locale: Locale }) {
       </fieldset>
 
       <fieldset className="mt-6">
-        <legend className="font-semibold text-ink-900">
+        <legend className="font-display font-bold text-ink-950">
           3. {isZh ? "您已注册SST吗？" : "Are you SST-registered?"}
         </legend>
         <div className="mt-3 flex gap-2">
@@ -124,11 +124,11 @@ export default function DeadlineCalendar({ locale }: { locale: Locale }) {
 
       {complete && (
         <div className="mt-10 space-y-6">
-          <div className="overflow-hidden rounded-2xl border border-ink-100">
+          <div className="border border-ink-200">
             <table className="w-full text-sm">
               <caption className="sr-only">Your compliance deadlines</caption>
               <thead>
-                <tr className="bg-ink-900 text-left text-white">
+                <tr className="bg-ink-950 text-left text-white">
                   <th scope="col" className="px-4 py-3">{isZh ? "时间" : "When"}</th>
                   <th scope="col" className="px-4 py-3">{isZh ? "事项" : "Obligation"}</th>
                 </tr>
@@ -160,15 +160,15 @@ export default function DeadlineCalendar({ locale }: { locale: Locale }) {
             }
             buttonLabel={isZh ? "发送我的合规日历" : "Send my compliance calendar"}
           >
-            <div className="rounded-2xl border border-gold-300 bg-white p-6 text-sm text-ink-700">
-              <p className="font-display font-bold text-ink-900">
+            <div className="border border-ink-200 p-8 text-sm text-ink-700">
+              <p className="font-display text-lg font-bold tracking-tight text-ink-950">
                 {isZh ? "已登记！" : "You're on the list!"}
               </p>
               <p className="mt-2">
                 {isZh
                   ? "我们会在每个关键截止日期前向您发送提醒。想要有人为您全程跟踪？"
                   : "We'll send you a reminder ahead of each key deadline. Want someone to track all of this for you?"}{" "}
-                <Link href={`/${locale}/services/taxation`} className="font-bold text-gold-700 hover:text-gold-800">
+                <Link href={`/${locale}/services/taxation`} className="font-bold text-ink-950 underline decoration-gold-400 decoration-2 underline-offset-4">
                   {isZh ? "了解XCG税务服务 →" : "See XCG's Taxation Services →"}
                 </Link>
               </p>

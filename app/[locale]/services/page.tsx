@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import CtaSection from "@/components/CtaSection";
+import Reveal from "@/components/Reveal";
 import { getDict } from "@/lib/i18n";
 import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import { services, stages } from "@/lib/services";
@@ -46,42 +47,48 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
           locale
         )}
       />
-      <section className="bg-ink-950">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-          <h1 className="font-display text-4xl font-extrabold text-white sm:text-5xl">
-            {t.home.servicesTitle}
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg text-ink-300">{t.home.journeySubtitle}</p>
+      <section className="relative overflow-hidden bg-ink-950">
+        <div aria-hidden="true" className="absolute right-0 top-0 h-[3px] w-1/3 bg-gold-400" />
+        <div className="mx-auto max-w-[1320px] px-5 py-24 sm:px-8">
+          <Reveal>
+            <p className="eyebrow-light !text-gold-400">{t.nav.services}</p>
+            <h1 className="display-1 mt-6 max-w-4xl text-white">{t.home.servicesTitle}</h1>
+            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink-300">{t.home.journeySubtitle}</p>
+          </Reveal>
         </div>
       </section>
 
-      {stageOrder.map((stage) => (
-        <section key={stage} className="mx-auto max-w-7xl px-4 py-12 sm:px-6" aria-labelledby={`stage-${stage}`}>
-          <h2 id={`stage-${stage}`} className="font-display text-2xl font-bold">
-            {isZh ? stages[stage].labelZh : stages[stage].label}
-          </h2>
-          <p className="mt-1 text-ink-600">{isZh ? stages[stage].descZh : stages[stage].desc}</p>
-          <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {services
-              .filter((s) => s.stage === stage)
-              .map((s) => (
-                <Link
-                  key={s.slug}
-                  href={p(`/services/${s.slug}`)}
-                  className="group rounded-2xl border border-ink-100 p-6 transition-all hover:border-gold-300 hover:shadow-md"
-                >
-                  <h3 className="font-display text-lg font-bold group-hover:text-gold-700">
-                    {isZh ? s.nameZh : s.name}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-600">
-                    {isZh ? s.shortDescZh : s.shortDesc}
-                  </p>
-                  <span className="mt-4 inline-block text-sm font-semibold text-gold-600">
-                    {t.common.learnMore} →
-                  </span>
-                </Link>
-              ))}
-          </div>
+      {stageOrder.map((stage, i) => (
+        <section key={stage} className="mx-auto max-w-[1320px] px-5 py-16 sm:px-8" aria-labelledby={`stage-${stage}`}>
+          <Reveal>
+            <div className="border-t border-ink-200 pt-10">
+              <p className="font-display text-sm font-bold text-gold-500">0{i + 1}</p>
+              <h2 id={`stage-${stage}`} className="mt-2 display-3">
+                {isZh ? stages[stage].labelZh : stages[stage].label}
+              </h2>
+              <p className="mt-2 max-w-2xl text-[16px] text-ink-500">
+                {isZh ? stages[stage].descZh : stages[stage].desc}
+              </p>
+            </div>
+            <div className="mt-10 grid gap-px bg-ink-200 md:grid-cols-2 lg:grid-cols-3">
+              {services
+                .filter((s) => s.stage === stage)
+                .map((s) => (
+                  <Link key={s.slug} href={p(`/services/${s.slug}`)} className="group bg-white p-8 transition-colors hover:bg-ink-50">
+                    <h3 className="font-display text-xl font-bold tracking-tight text-ink-950">
+                      {isZh ? s.nameZh : s.name}
+                    </h3>
+                    <p className="mt-3 text-[14px] leading-relaxed text-ink-500">
+                      {isZh ? s.shortDescZh : s.shortDesc}
+                    </p>
+                    <span className="link-arrow mt-6">
+                      {t.common.learnMore}
+                      <span className="arrow" aria-hidden="true">→</span>
+                    </span>
+                  </Link>
+                ))}
+            </div>
+          </Reveal>
         </section>
       ))}
 

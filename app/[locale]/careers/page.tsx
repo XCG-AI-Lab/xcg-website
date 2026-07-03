@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
+import Reveal from "@/components/Reveal";
 import { getDict } from "@/lib/i18n";
 import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import { site, type Locale } from "@/lib/site";
@@ -78,46 +79,58 @@ export default async function CareersPage({ params }: { params: Promise<{ locale
           locale
         )}
       />
-      <section className="bg-ink-950">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-          <h1 className="font-display text-4xl font-extrabold text-white sm:text-5xl">{t.careers.title}</h1>
-          <p className="mt-4 max-w-2xl text-lg text-ink-300">{t.careers.subtitle}</p>
+      <section className="relative overflow-hidden bg-ink-950">
+        <div aria-hidden="true" className="absolute right-0 top-0 h-[3px] w-1/3 bg-gold-400" />
+        <div className="mx-auto max-w-[1320px] px-5 py-24 sm:px-8">
+          <Reveal>
+            <p className="eyebrow-light !text-gold-400">{t.nav.careers}</p>
+            <h1 className="display-1 mt-6 max-w-4xl text-white">{t.careers.title}</h1>
+            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink-300">{t.careers.subtitle}</p>
+          </Reveal>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-        <h2 className="font-display text-2xl font-bold">{t.careers.whyTitle}</h2>
-        <ul className="mt-6 grid gap-4 sm:grid-cols-2">
-          {perks.map((p) => (
-            <li key={p.en} className="flex items-start gap-3 rounded-2xl border border-ink-100 p-5">
-              <span aria-hidden="true" className="mt-0.5 text-gold-500">✦</span>
-              <span className="text-sm leading-relaxed text-ink-700">{isZh ? p.zh : p.en}</span>
+      <section className="mx-auto max-w-[1320px] px-5 py-20 sm:px-8">
+        <Reveal>
+          <span className="beam" aria-hidden="true" />
+          <h2 className="mt-5 display-3">{t.careers.whyTitle}</h2>
+        </Reveal>
+        <ul className="mt-10 grid gap-px bg-ink-200 sm:grid-cols-2 lg:grid-cols-4">
+          {perks.map((perk, i) => (
+            <li key={perk.en} className="bg-white p-7">
+              <p className="font-display text-sm font-bold text-gold-500">0{i + 1}</p>
+              <p className="mt-3 text-[14px] leading-relaxed text-ink-700">{isZh ? perk.zh : perk.en}</p>
             </li>
           ))}
         </ul>
 
-        <h2 className="mt-16 font-display text-2xl font-bold">{t.careers.openingsTitle}</h2>
-        <div className="mt-6 space-y-4">
+        <Reveal>
+          <span className="beam mt-20" aria-hidden="true" />
+          <h2 className="mt-5 display-3">{t.careers.openingsTitle}</h2>
+        </Reveal>
+        <div className="mt-10">
           {openings.map((o) => (
-            <article key={o.title} className="rounded-2xl border border-ink-100 p-6 sm:flex sm:items-center sm:justify-between sm:gap-6">
+            <article key={o.title} className="grid gap-4 border-t border-ink-200 py-8 sm:grid-cols-[1fr_auto] sm:items-center">
               <div>
-                <h3 className="font-display text-lg font-bold">{isZh ? o.titleZh : o.title}</h3>
-                <p className="mt-0.5 text-xs font-semibold uppercase tracking-wide text-gold-600">{o.type}</p>
-                <p className="mt-2 text-sm text-ink-600">{isZh ? o.descZh : o.desc}</p>
+                <h3 className="font-display text-xl font-bold tracking-tight text-ink-950">
+                  {isZh ? o.titleZh : o.title}
+                </h3>
+                <p className="eyebrow mt-1.5 !text-gold-600">{o.type}</p>
+                <p className="mt-3 max-w-3xl text-[15px] leading-relaxed text-ink-600">{isZh ? o.descZh : o.desc}</p>
               </div>
               <a
                 href={`mailto:${site.email}?subject=${encodeURIComponent(`Job Application: ${o.title}`)}`}
-                className="mt-4 inline-block shrink-0 rounded-lg bg-ink-900 px-5 py-2.5 text-sm font-bold text-white hover:bg-ink-800 sm:mt-0"
+                className="btn-outline shrink-0"
               >
-                {t.careers.applyCta}
+                {t.careers.applyCta} <span aria-hidden="true">→</span>
               </a>
             </article>
           ))}
         </div>
 
-        <p className="mt-10 rounded-2xl bg-ink-50 p-6 text-sm text-ink-700">
+        <p className="mt-12 border-l-[3px] border-gold-400 bg-ink-50 p-6 text-[15px] text-ink-700">
           {t.careers.noRole}{" "}
-          <a href={`mailto:${site.email}`} className="font-semibold text-gold-700 hover:text-gold-800">
+          <a href={`mailto:${site.email}`} className="font-bold text-ink-950 underline decoration-gold-400 decoration-2 underline-offset-4">
             {t.careers.applyEmail} {site.email}
           </a>
         </p>

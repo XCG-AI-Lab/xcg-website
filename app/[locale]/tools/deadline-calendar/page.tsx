@@ -42,11 +42,12 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
           locale
         )}
       />
-      <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
-        <h1 className="font-display text-3xl font-extrabold sm:text-4xl">
+      <div className="mx-auto max-w-[820px] px-5 py-16 sm:px-8">
+        <span className="beam" aria-hidden="true" />
+        <h1 className="mt-5 font-display text-4xl font-bold tracking-tight sm:text-5xl">
           {isZh ? "合规截止日期日历" : "Compliance Deadline Calendar"}
         </h1>
-        <p className="mt-3 text-ink-600">
+        <p className="mt-4 text-lg leading-relaxed text-ink-500">
           {isZh
             ? "三个问题，生成您公司的年度合规日历——涵盖LHDN、SSM、KWSP和PERKESO。"
             : "Three questions to generate your company's annual compliance calendar — across LHDN, SSM, KWSP and PERKESO."}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
+import Reveal from "@/components/Reveal";
 import { getDict } from "@/lib/i18n";
 import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import type { Locale } from "@/lib/site";
@@ -65,27 +66,29 @@ export default async function ToolsPage({ params }: { params: Promise<{ locale: 
           locale
         )}
       />
-      <section className="bg-ink-950">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-          <h1 className="font-display text-4xl font-extrabold text-white sm:text-5xl">{t.tools.title}</h1>
-          <p className="mt-4 max-w-2xl text-lg text-ink-300">{t.tools.subtitle}</p>
+      <section className="relative overflow-hidden bg-ink-950">
+        <div aria-hidden="true" className="absolute right-0 top-0 h-[3px] w-1/3 bg-gold-400" />
+        <div className="mx-auto max-w-[1320px] px-5 py-24 sm:px-8">
+          <Reveal>
+            <p className="eyebrow-light !text-gold-400">{t.nav.tools}</p>
+            <h1 className="display-1 mt-6 max-w-4xl text-white">{t.tools.title}</h1>
+            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink-300">{t.tools.subtitle}</p>
+          </Reveal>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-        <div className="grid gap-6 md:grid-cols-3">
-          {tools.map((tool) => (
-            <Link
-              key={tool.slug}
-              href={`/${locale}/tools/${tool.slug}`}
-              className="group rounded-2xl border border-ink-100 p-7 transition-all hover:border-gold-300 hover:shadow-md"
-            >
-              <h2 className="font-display text-xl font-bold group-hover:text-gold-700">
+      <section className="mx-auto max-w-[1320px] px-5 py-20 sm:px-8">
+        <div className="grid gap-px bg-ink-200 md:grid-cols-3">
+          {tools.map((tool, i) => (
+            <Link key={tool.slug} href={`/${locale}/tools/${tool.slug}`} className="group bg-white p-10 transition-colors hover:bg-ink-50">
+              <p className="font-display text-sm font-bold text-gold-500">0{i + 1}</p>
+              <h2 className="mt-4 font-display text-2xl font-bold tracking-tight text-ink-950">
                 {isZh ? tool.nameZh : tool.name}
               </h2>
-              <p className="mt-3 text-sm leading-relaxed text-ink-600">{isZh ? tool.descZh : tool.desc}</p>
-              <span className="mt-5 inline-block font-semibold text-gold-600">
-                {t.common.getStarted} →
+              <p className="mt-4 text-[15px] leading-relaxed text-ink-500">{isZh ? tool.descZh : tool.desc}</p>
+              <span className="link-arrow mt-8">
+                {t.common.getStarted}
+                <span className="arrow" aria-hidden="true">→</span>
               </span>
             </Link>
           ))}

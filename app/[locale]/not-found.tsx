@@ -9,10 +9,10 @@ export default function NotFound() {
         The page you&apos;re looking for doesn&apos;t exist or has moved.
       </p>
       <div className="mt-8 flex gap-4">
-        <Link href="/en" className="rounded-lg bg-gold-400 px-5 py-2.5 font-bold text-ink-900 hover:bg-gold-300">
+        <Link href="/en" className="btn-gold">
           Home
         </Link>
-        <Link href="/en/services" className="rounded-lg border border-ink-200 px-5 py-2.5 font-semibold text-ink-800 hover:border-gold-400">
+        <Link href="/en/services" className="btn-outline">
           Our Services
         </Link>
       </div>

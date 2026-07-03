@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import CtaSection from "@/components/CtaSection";
+import Reveal from "@/components/Reveal";
 import { getDict } from "@/lib/i18n";
 import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import { articles, clusters } from "@/content/articles";
@@ -47,47 +48,52 @@ export default async function ResourcesPage({ params }: { params: Promise<{ loca
           locale
         )}
       />
-      <section className="bg-ink-950">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-          <h1 className="font-display text-4xl font-extrabold text-white sm:text-5xl">{t.resources.title}</h1>
-          <p className="mt-4 max-w-2xl text-lg text-ink-300">{t.resources.subtitle}</p>
+      <section className="relative overflow-hidden bg-ink-950">
+        <div aria-hidden="true" className="absolute right-0 top-0 h-[3px] w-1/3 bg-gold-400" />
+        <div className="mx-auto max-w-[1320px] px-5 py-24 sm:px-8">
+          <Reveal>
+            <p className="eyebrow-light !text-gold-400">{t.nav.resources}</p>
+            <h1 className="display-1 mt-6 max-w-4xl text-white">{t.resources.title}</h1>
+            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink-300">{t.resources.subtitle}</p>
+          </Reveal>
         </div>
       </section>
 
-      {clusterOrder.map((clusterSlug) => {
+      {clusterOrder.map((clusterSlug, ci) => {
         const cluster = clusters[clusterSlug];
         const clusterArticles = articles.filter((a) => a.cluster === clusterSlug);
         return (
-          <section key={clusterSlug} className="mx-auto max-w-7xl px-4 py-12 sm:px-6" aria-labelledby={`cluster-${clusterSlug}`}>
-            <div className="flex flex-wrap items-end justify-between gap-3">
-              <div>
-                <h2 id={`cluster-${clusterSlug}`} className="font-display text-2xl font-bold">
-                  {isZh ? cluster.nameZh : cluster.name}
-                </h2>
-                <p className="mt-1 max-w-2xl text-sm text-ink-600">{isZh ? cluster.descZh : cluster.desc}</p>
-              </div>
-              <Link
-                href={p(`/resources/${clusterSlug}`)}
-                className="text-sm font-semibold text-gold-700 hover:text-gold-800"
-              >
-                {t.common.viewAll} ({clusterArticles.length}) →
-              </Link>
-            </div>
-            <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {clusterArticles.slice(0, 3).map((a) => (
-                <Link
-                  key={a.slug}
-                  href={p(`/resources/${a.cluster}/${a.slug}`)}
-                  className="group rounded-2xl border border-ink-100 p-6 transition-all hover:border-gold-300 hover:shadow-md"
-                >
-                  <h3 className="font-display text-lg font-bold leading-snug group-hover:text-gold-700">{a.h1}</h3>
-                  <p className="mt-2 text-sm text-ink-600">{a.excerpt}</p>
-                  <p className="mt-4 text-xs text-ink-400">
-                    {t.resources.updated} {a.dateModified} · {a.readMins} {t.resources.minRead}
+          <section key={clusterSlug} className="mx-auto max-w-[1320px] px-5 py-14 sm:px-8" aria-labelledby={`cluster-${clusterSlug}`}>
+            <Reveal>
+              <div className="grid gap-6 border-t border-ink-200 pt-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">
+                <div>
+                  <p className="font-display text-sm font-bold text-gold-500">0{ci + 1}</p>
+                  <h2 id={`cluster-${clusterSlug}`} className="mt-2 display-3">
+                    {isZh ? cluster.nameZh : cluster.name}
+                  </h2>
+                  <p className="mt-3 max-w-md text-[15px] leading-relaxed text-ink-500">
+                    {isZh ? cluster.descZh : cluster.desc}
                   </p>
-                </Link>
-              ))}
-            </div>
+                  <Link href={p(`/resources/${clusterSlug}`)} className="link-arrow mt-6">
+                    {t.common.viewAll} ({clusterArticles.length})
+                    <span className="arrow" aria-hidden="true">→</span>
+                  </Link>
+                </div>
+                <div className="divide-y divide-ink-100">
+                  {clusterArticles.slice(0, 4).map((a) => (
+                    <Link key={a.slug} href={p(`/resources/${a.cluster}/${a.slug}`)} className="group flex items-baseline justify-between gap-6 py-5">
+                      <div>
+                        <h3 className="font-display text-lg font-bold tracking-tight text-ink-950 group-hover:underline group-hover:decoration-gold-400 group-hover:decoration-[3px] group-hover:underline-offset-4">
+                          {a.h1}
+                        </h3>
+                        <p className="mt-1.5 text-[14px] text-ink-500">{a.excerpt}</p>
+                      </div>
+                      <span className="text-[13px] text-ink-400 whitespace-nowrap">{a.readMins} {t.resources.minRead}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
           </section>
         );
       })}

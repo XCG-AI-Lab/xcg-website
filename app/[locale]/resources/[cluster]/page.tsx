@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import JsonLd from "@/components/JsonLd";
 import CtaSection from "@/components/CtaSection";
+import Reveal from "@/components/Reveal";
 import { getDict } from "@/lib/i18n";
 import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import { getArticlesByCluster, clusters } from "@/content/articles";
@@ -59,34 +60,41 @@ export default async function ClusterPage({
           locale
         )}
       />
-      <section className="bg-ink-950">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-          <Link href={p("/resources")} className="text-sm font-semibold text-gold-400 hover:text-gold-300">
-            ← {t.nav.resources}
-          </Link>
-          <h1 className="mt-3 font-display text-4xl font-extrabold text-white sm:text-5xl">
-            {isZh ? c.nameZh : c.name}
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg text-ink-300">{isZh ? c.descZh : c.desc}</p>
-          <p className="mt-2 text-sm text-ink-500">
-            {clusterArticles.length} {t.resources.inThisCluster}
-          </p>
+      <section className="relative overflow-hidden bg-ink-950">
+        <div aria-hidden="true" className="absolute right-0 top-0 h-[3px] w-1/3 bg-gold-400" />
+        <div className="mx-auto max-w-[1320px] px-5 py-24 sm:px-8">
+          <Reveal>
+            <Link href={p("/resources")} className="eyebrow-light !text-gold-400 hover:underline">
+              ← {t.nav.resources}
+            </Link>
+            <h1 className="display-1 mt-6 max-w-4xl text-white">{isZh ? c.nameZh : c.name}</h1>
+            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink-300">{isZh ? c.descZh : c.desc}</p>
+            <p className="mt-4 text-[14px] text-ink-500">
+              {clusterArticles.length} {t.resources.inThisCluster}
+            </p>
+          </Reveal>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {clusterArticles.map((a) => (
-            <Link
-              key={a.slug}
-              href={p(`/resources/${a.cluster}/${a.slug}`)}
-              className="group flex flex-col rounded-2xl border border-ink-100 p-6 transition-all hover:border-gold-300 hover:shadow-md"
-            >
-              <h2 className="font-display text-lg font-bold leading-snug group-hover:text-gold-700">{a.h1}</h2>
-              <p className="mt-2 flex-1 text-sm text-ink-600">{a.excerpt}</p>
-              <p className="mt-4 text-xs text-ink-400">
-                {t.resources.updated} {a.dateModified} · {a.readMins} {t.resources.minRead}
-              </p>
+      <section className="mx-auto max-w-[1320px] px-5 py-20 sm:px-8">
+        <div>
+          {clusterArticles.map((a, i) => (
+            <Link key={a.slug} href={p(`/resources/${a.cluster}/${a.slug}`)} className="group block">
+              <article className="grid gap-2 border-t border-ink-200 py-8 transition-colors group-hover:bg-ink-50 sm:grid-cols-[80px_1fr_auto] sm:items-baseline sm:gap-8 sm:px-2">
+                <p aria-hidden="true" className="font-display text-sm font-bold text-gold-500">
+                  {String(i + 1).padStart(2, "0")}
+                </p>
+                <div>
+                  <h2 className="font-display text-xl font-bold tracking-tight text-ink-950 group-hover:underline group-hover:decoration-gold-400 group-hover:decoration-[3px] group-hover:underline-offset-4 sm:text-2xl">
+                    {a.h1}
+                  </h2>
+                  <p className="mt-2 max-w-3xl text-[15px] leading-relaxed text-ink-500">{a.excerpt}</p>
+                  <p className="mt-3 text-[13px] text-ink-400">
+                    {t.resources.updated} {a.dateModified} · {a.readMins} {t.resources.minRead}
+                  </p>
+                </div>
+                <span aria-hidden="true" className="hidden text-gold-500 transition-transform duration-200 group-hover:translate-x-1.5 sm:block">→</span>
+              </article>
             </Link>
           ))}
         </div>

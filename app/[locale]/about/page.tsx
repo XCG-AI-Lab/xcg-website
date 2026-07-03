@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
 import CtaSection from "@/components/CtaSection";
+import Reveal from "@/components/Reveal";
 import { getDict } from "@/lib/i18n";
 import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import { site, type Locale } from "@/lib/site";
@@ -43,103 +44,113 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       />
 
       {/* Intro */}
-      <section className="bg-ink-950">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
-          <h1 className="font-display text-4xl font-extrabold text-white sm:text-5xl">{t.about.title}</h1>
-          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-ink-300">{t.about.story}</p>
+      <section className="relative overflow-hidden bg-ink-950">
+        <div aria-hidden="true" className="absolute right-0 top-0 h-[3px] w-1/3 bg-gold-400" />
+        <div className="mx-auto max-w-[1320px] px-5 py-24 sm:px-8 lg:py-32">
+          <Reveal>
+            <p className="eyebrow-light !text-gold-400">{t.nav.about}</p>
+            <h1 className="display-1 mt-6 max-w-4xl text-white">{t.about.title}</h1>
+            <p className="mt-8 max-w-3xl text-lg leading-relaxed text-ink-300 sm:text-xl">{t.about.story}</p>
+          </Reveal>
         </div>
       </section>
 
-      {/* 5 Meanings of X */}
-      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6" aria-labelledby="meanings-title">
-        <h2 id="meanings-title" className="text-center font-display text-3xl font-bold sm:text-4xl">
-          {t.about.meaningsTitle}
-        </h2>
-        <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {/* 5 Meanings of X — editorial numbered blocks */}
+      <section className="mx-auto max-w-[1320px] px-5 py-24 sm:px-8" aria-labelledby="meanings-title">
+        <Reveal>
+          <span className="beam" aria-hidden="true" />
+          <h2 id="meanings-title" className="display-2 mt-6">
+            {t.about.meaningsTitle}
+          </h2>
+        </Reveal>
+        <div className="mt-14">
           {t.about.meanings.map((m, i) => (
-            <div key={m.title} className="relative overflow-hidden rounded-2xl border border-ink-100 p-8">
-              <span
-                aria-hidden="true"
-                className="absolute -right-4 -top-6 font-display text-8xl font-extrabold text-gold-100"
-              >
-                {i === 4 ? "∞" : "X"}
-              </span>
-              <h3 className="relative font-display text-xl font-bold">{m.title}</h3>
-              <p className="relative mt-3 text-sm leading-relaxed text-ink-600">{m.desc}</p>
-            </div>
+            <Reveal key={m.title}>
+              <div className="grid gap-4 border-t border-ink-200 py-10 sm:grid-cols-[120px_minmax(0,5fr)_minmax(0,7fr)] sm:items-baseline sm:gap-8">
+                <p aria-hidden="true" className="font-display text-4xl font-bold text-gold-400">
+                  {i === 4 ? "∞" : `0${i + 1}`}
+                </p>
+                <h3 className="font-display text-2xl font-bold tracking-tight text-ink-950">{m.title}</h3>
+                <p className="text-[16px] leading-relaxed text-ink-600">{m.desc}</p>
+              </div>
+            </Reveal>
           ))}
         </div>
       </section>
 
-      {/* Mission / Vision */}
-      <section className="bg-ink-50">
-        <div className="mx-auto grid max-w-7xl gap-6 px-4 py-20 sm:px-6 md:grid-cols-2">
-          <div className="rounded-2xl bg-white p-8 shadow-sm">
-            <h2 className="font-display text-2xl font-bold">{t.about.missionTitle}</h2>
-            <p className="mt-3 leading-relaxed text-ink-600">{t.about.mission}</p>
+      {/* Mission / Vision — split statement */}
+      <section className="bg-ink-950">
+        <div className="mx-auto grid max-w-[1320px] gap-px bg-white/10 px-0 md:grid-cols-2">
+          <div className="bg-ink-950 px-5 py-20 sm:px-8 lg:px-12">
+            <p className="eyebrow-light !text-gold-400">{t.about.missionTitle}</p>
+            <p className="mt-6 font-display text-2xl font-semibold leading-snug tracking-tight text-white">
+              {t.about.mission}
+            </p>
           </div>
-          <div className="rounded-2xl bg-white p-8 shadow-sm">
-            <h2 className="font-display text-2xl font-bold">{t.about.visionTitle}</h2>
-            <p className="mt-3 leading-relaxed text-ink-600">{t.about.vision}</p>
+          <div className="bg-ink-950 px-5 py-20 sm:px-8 lg:px-12">
+            <p className="eyebrow-light !text-gold-400">{t.about.visionTitle}</p>
+            <p className="mt-6 font-display text-2xl font-semibold leading-snug tracking-tight text-white">
+              {t.about.vision}
+            </p>
           </div>
         </div>
       </section>
 
       {/* PRIME values */}
-      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6" aria-labelledby="values-title">
-        <h2 id="values-title" className="text-center font-display text-3xl font-bold sm:text-4xl">
-          {t.about.valuesTitle}
-        </h2>
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      <section className="mx-auto max-w-[1320px] px-5 py-24 sm:px-8" aria-labelledby="values-title">
+        <Reveal>
+          <span className="beam" aria-hidden="true" />
+          <h2 id="values-title" className="display-2 mt-6">
+            {t.about.valuesTitle}
+          </h2>
+        </Reveal>
+        <div className="mt-14 grid gap-px bg-ink-200 sm:grid-cols-2 lg:grid-cols-5">
           {t.about.values.map((v) => (
-            <div key={v.k} className="rounded-2xl border border-ink-100 p-6 text-center">
-              <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-ink-900 font-display text-xl font-extrabold text-gold-400">
-                {v.k}
-              </span>
-              <h3 className="mt-4 font-display font-bold">{v.title}</h3>
-              <p className="mt-2 text-sm text-ink-600">{v.desc}</p>
+            <div key={v.k} className="bg-white py-8 pr-6 sm:px-6 lg:px-6">
+              <p className="font-display text-4xl font-bold text-gold-400">{v.k}</p>
+              <h3 className="mt-4 font-display text-lg font-bold tracking-tight text-ink-950">{v.title}</h3>
+              <p className="mt-2 text-[14px] leading-relaxed text-ink-500">{v.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* Founders */}
-      <section className="bg-ink-950" aria-labelledby="team-title">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
-          <h2 id="team-title" className="text-center font-display text-3xl font-bold text-white sm:text-4xl">
-            {t.about.teamTitle}
-          </h2>
-          <p className="mt-2 text-center text-ink-400">{t.about.teamSubtitle}</p>
-          <div className="mt-12 grid gap-8 md:grid-cols-2">
+      <section className="border-t border-ink-200" aria-labelledby="team-title">
+        <div className="mx-auto max-w-[1320px] px-5 py-24 sm:px-8">
+          <Reveal>
+            <span className="beam" aria-hidden="true" />
+            <h2 id="team-title" className="display-2 mt-6 max-w-3xl">
+              {t.about.teamTitle}
+            </h2>
+            <p className="mt-3 text-lg text-ink-500">{t.about.teamSubtitle}</p>
+          </Reveal>
+          <div className="mt-14 grid gap-12 lg:grid-cols-2">
             {site.founders.map((f) => (
-              <article key={f.name} className="rounded-2xl border border-ink-800 bg-ink-900 p-8">
-                <div className="flex items-center gap-4">
-                  <span
-                    aria-hidden="true"
-                    className="flex h-16 w-16 items-center justify-center rounded-full bg-gold-400 font-display text-2xl font-extrabold text-ink-900"
-                  >
-                    {f.name.split(" ").map((n) => n[0]).join("")}
-                  </span>
-                  <div>
-                    <h3 className="font-display text-xl font-bold text-white">{f.name}</h3>
-                    <p className="text-sm font-semibold text-gold-400">{isZh ? f.roleZh : f.role}</p>
-                  </div>
-                </div>
-                <p className="mt-4 text-xs font-medium uppercase tracking-wide text-ink-400">{f.credentials}</p>
-                <p className="mt-3 text-sm leading-relaxed text-ink-300">{isZh ? f.bioZh : f.bio}</p>
-              </article>
+              <Reveal key={f.name}>
+                <article className="border-t-[3px] border-ink-950 pt-8">
+                  <h3 className="font-display text-3xl font-bold tracking-tight text-ink-950">{f.name}</h3>
+                  <p className="mt-1 font-display text-[15px] font-bold text-gold-600">
+                    {isZh ? f.roleZh : f.role}
+                  </p>
+                  <p className="mt-4 text-[13px] font-bold uppercase tracking-wider text-ink-400">
+                    {f.credentials}
+                  </p>
+                  <p className="mt-5 text-[15px] leading-relaxed text-ink-600">{isZh ? f.bioZh : f.bio}</p>
+                </article>
+              </Reveal>
             ))}
           </div>
 
           {/* Awards */}
-          <div className="mt-16 border-t border-ink-800 pt-10">
-            <h2 className="text-center font-display text-2xl font-bold text-white">{t.home.awardsTitle}</h2>
-            <ul className="mt-8 grid gap-4 md:grid-cols-3">
+          <div className="mt-20 border-t border-ink-200 pt-12">
+            <p className="eyebrow">{t.home.awardsTitle}</p>
+            <ul className="mt-8 grid gap-10 md:grid-cols-3">
               {site.awards.map((a) => (
-                <li key={a.name} className="rounded-2xl border border-ink-800 p-6 text-center">
-                  <span aria-hidden="true" className="text-2xl text-gold-400">🏆</span>
-                  <p className="mt-2 font-display font-bold text-white">{a.year} {a.name}</p>
-                  <p className="mt-1 text-sm text-ink-400">{a.detail}</p>
+                <li key={a.name}>
+                  <p className="font-display text-5xl font-bold tracking-tight text-gold-400">{a.year}</p>
+                  <p className="mt-3 font-display text-lg font-bold leading-snug text-ink-950">{a.name}</p>
+                  <p className="mt-1 text-[14px] text-ink-500">{a.detail}</p>
                 </li>
               ))}
             </ul>

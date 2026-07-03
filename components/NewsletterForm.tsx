@@ -27,11 +27,11 @@ export default function NewsletterForm({ locale }: { locale: Locale }) {
   }
 
   if (status === "done") {
-    return <p className="text-sm font-medium text-gold-400">{t.footer.newsletterSuccess}</p>;
+    return <p className="text-[15px] font-bold text-gold-400">{t.footer.newsletterSuccess}</p>;
   }
 
   return (
-    <form onSubmit={submit} className="flex w-full max-w-md gap-2">
+    <form onSubmit={submit} className="flex w-full">
       <label htmlFor="newsletter-email" className="sr-only">
         {t.footer.newsletterPlaceholder}
       </label>
@@ -42,12 +42,12 @@ export default function NewsletterForm({ locale }: { locale: Locale }) {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder={t.footer.newsletterPlaceholder}
-        className="w-full rounded-lg border border-ink-700 bg-ink-900 px-4 py-2.5 text-sm text-white placeholder:text-ink-500 focus:border-gold-400"
+        className="field-dark flex-1"
       />
       <button
         type="submit"
         disabled={status === "sending"}
-        className="shrink-0 rounded-lg bg-gold-400 px-4 py-2.5 text-sm font-bold text-ink-900 hover:bg-gold-300 disabled:opacity-60"
+        className="btn-gold shrink-0 disabled:opacity-60"
       >
         {status === "sending" ? "…" : t.footer.newsletterButton}
       </button>

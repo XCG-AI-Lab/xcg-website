@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import CtaSection from "@/components/CtaSection";
+import Reveal from "@/components/Reveal";
 import { getDict } from "@/lib/i18n";
 import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import type { Locale } from "@/lib/site";
@@ -142,58 +143,55 @@ export default async function PricingPage({ params }: { params: Promise<{ locale
           locale
         )}
       />
-      <section className="bg-ink-950">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 text-center">
-          <h1 className="font-display text-4xl font-extrabold text-white sm:text-5xl">{t.pricing.title}</h1>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-ink-300">{t.pricing.subtitle}</p>
+      <section className="relative overflow-hidden bg-ink-950">
+        <div aria-hidden="true" className="absolute right-0 top-0 h-[3px] w-1/3 bg-gold-400" />
+        <div className="mx-auto max-w-[1320px] px-5 py-24 sm:px-8">
+          <Reveal>
+            <p className="eyebrow-light !text-gold-400">{t.nav.pricing}</p>
+            <h1 className="display-1 mt-6 max-w-4xl text-white">{t.pricing.title}</h1>
+            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink-300">{t.pricing.subtitle}</p>
+          </Reveal>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+      <section className="mx-auto max-w-[1320px] px-5 py-20 sm:px-8">
+        <div className="grid gap-px bg-ink-200 md:grid-cols-2 xl:grid-cols-4">
           {packages.map((pkg) => (
-            <div
-              key={pkg.name}
-              className={`relative flex flex-col rounded-2xl border p-7 ${
-                pkg.popular ? "border-gold-400 shadow-lg shadow-gold-100" : "border-ink-100"
-              }`}
-            >
+            <div key={pkg.name} className={`relative flex flex-col bg-white p-8 ${pkg.popular ? "outline outline-[3px] -outline-offset-[3px] outline-gold-400" : ""}`}>
               {pkg.popular && (
-                <span className="absolute -top-3 left-6 rounded-full bg-gold-400 px-3 py-0.5 text-xs font-bold text-ink-900">
+                <span className="absolute right-0 top-0 bg-gold-400 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-ink-950">
                   {isZh ? "最受欢迎" : "Most popular"}
                 </span>
               )}
-              <h2 className="font-display text-lg font-bold">{isZh ? pkg.nameZh : pkg.name}</h2>
-              <p className="mt-3">
-                <span className="text-sm text-ink-500">{t.pricing.from} </span>
-                <span className="font-display text-3xl font-extrabold text-ink-900">{pkg.price}</span>
-                <span className="text-sm text-ink-500">
+              <h2 className="font-display text-lg font-bold tracking-tight text-ink-950">
+                {isZh ? pkg.nameZh : pkg.name}
+              </h2>
+              <p className="mt-5">
+                <span className="block text-[12px] font-bold uppercase tracking-wider text-ink-400">{t.pricing.from}</span>
+                <span className="font-display text-4xl font-bold tracking-tight text-ink-950">{pkg.price}</span>
+                <span className="text-[14px] text-ink-500">
                   {pkg.unit === "month" ? t.pricing.month : pkg.unit === "year" ? t.pricing.year : ` ${t.pricing.oneTime}`}
                   {"perEmployee" in pkg && pkg.perEmployee ? (isZh ? "/员工" : "/employee") : ""}
                 </span>
               </p>
-              <ul className="mt-5 flex-1 space-y-2.5 border-t border-ink-100 pt-5">
+              <ul className="mt-6 flex-1 space-y-3 border-t border-ink-200 pt-6">
                 {(isZh ? pkg.featuresZh : pkg.features).map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-sm text-ink-700">
-                    <span aria-hidden="true" className="mt-0.5 text-gold-500">✓</span>
+                  <li key={f} className="relative pl-6 text-[14px] leading-relaxed text-ink-600">
+                    <span aria-hidden="true" className="absolute left-0 top-[0.6em] h-[3px] w-3.5 bg-gold-400" />
                     {f}
                   </li>
                 ))}
               </ul>
               <Link
                 href={`/${locale}/contact`}
-                className={`mt-6 rounded-lg px-4 py-2.5 text-center text-sm font-bold ${
-                  pkg.popular
-                    ? "bg-gold-400 text-ink-900 hover:bg-gold-300"
-                    : "border border-ink-200 text-ink-800 hover:border-gold-400"
-                }`}
+                className={`mt-8 ${pkg.popular ? "btn-gold" : "btn-outline"} justify-center`}
               >
                 {t.pricing.cta}
               </Link>
             </div>
           ))}
         </div>
-        <p className="mx-auto mt-10 max-w-3xl text-center text-xs leading-relaxed text-ink-500">{t.pricing.note}</p>
+        <p className="mx-auto mt-10 max-w-3xl text-[13px] leading-relaxed text-ink-500">{t.pricing.note}</p>
       </section>
 
       <CtaSection locale={locale} />

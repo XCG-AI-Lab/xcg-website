@@ -73,31 +73,34 @@ export default async function ArticlePage({
         ]}
       />
 
-      <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
-        {/* Breadcrumb */}
-        <nav aria-label="Breadcrumb" className="text-sm text-ink-500">
-          <Link href={p("/resources")} className="hover:text-gold-700">{t.nav.resources}</Link>
-          {" / "}
-          <Link href={p(`/resources/${article.cluster}`)} className="hover:text-gold-700">
-            {isZh ? c.nameZh : c.name}
-          </Link>
-        </nav>
-
-        <h1 className="mt-4 font-display text-3xl font-extrabold leading-tight sm:text-4xl">{article.h1}</h1>
-
-        {/* Byline */}
-        <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-1 border-b border-ink-100 pb-5 text-sm text-ink-500">
-          <span className="font-semibold text-ink-800">{t.resources.byline}</span>
-          <span>
-            {t.resources.published} {article.datePublished} · {t.resources.updated}{" "}
-            <time dateTime={article.dateModified}>{article.dateModified}</time>
-          </span>
-          <span>{article.readMins} {t.resources.minRead}</span>
+      {/* Article masthead */}
+      <header className="border-b border-ink-200">
+        <div className="mx-auto max-w-[900px] px-5 pb-12 pt-16 sm:px-8">
+          <nav aria-label="Breadcrumb" className="eyebrow">
+            <Link href={p("/resources")} className="hover:text-ink-950">{t.nav.resources}</Link>
+            <span aria-hidden="true" className="mx-2 text-ink-300">/</span>
+            <Link href={p(`/resources/${article.cluster}`)} className="!text-gold-600 hover:text-ink-950">
+              {isZh ? c.nameZh : c.name}
+            </Link>
+          </nav>
+          <h1 className="mt-6 font-display text-4xl font-bold leading-[1.08] tracking-tight text-ink-950 sm:text-5xl">
+            {article.h1}
+          </h1>
+          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px] text-ink-500">
+            <span className="font-bold text-ink-950">{t.resources.byline}</span>
+            <span>
+              {t.resources.published} {article.datePublished} · {t.resources.updated}{" "}
+              <time dateTime={article.dateModified}>{article.dateModified}</time>
+            </span>
+            <span>{article.readMins} {t.resources.minRead}</span>
+          </div>
+          <p className="mt-3 text-[13px] text-ink-400">{t.resources.reviewedBy}</p>
         </div>
-        <p className="mt-3 text-xs text-ink-500">{t.resources.reviewedBy}</p>
+      </header>
 
+      <article className="mx-auto max-w-[900px] px-5 py-12 sm:px-8">
         {/* Body */}
-        <div className="article-body mt-8">
+        <div className="article-body">
           {article.sections.map((section, i) => (
             <section key={i}>
               <h2>{section.h2}</h2>
@@ -134,66 +137,64 @@ export default async function ArticlePage({
         </div>
 
         {/* FAQ */}
-        <section className="mt-12" aria-labelledby="article-faq">
-          <h2 id="article-faq" className="font-display text-2xl font-bold">{t.common.faqTitle}</h2>
-          <div className="mt-4 space-y-3">
+        <section className="mt-16" aria-labelledby="article-faq">
+          <span className="beam" aria-hidden="true" />
+          <h2 id="article-faq" className="mt-5 font-display text-2xl font-bold tracking-tight sm:text-3xl">
+            {t.common.faqTitle}
+          </h2>
+          <div className="mt-8 border-b border-ink-200">
             {article.faqs.map((f, i) => (
-              <details key={i} className="group rounded-2xl border border-ink-100 open:border-gold-300 open:bg-gold-50/40">
-                <summary className="flex cursor-pointer items-center justify-between gap-4 px-5 py-4 text-sm font-semibold text-ink-900 [&::-webkit-details-marker]:hidden">
+              <details key={i} className="accordion">
+                <summary>
                   {f.q}
-                  <span aria-hidden="true" className="text-gold-600 transition-transform group-open:rotate-45">＋</span>
+                  <span className="acc-icon" aria-hidden="true">＋</span>
                 </summary>
-                <p className="px-5 pb-5 text-sm leading-relaxed text-ink-700">{f.a}</p>
+                <p className="acc-body">{f.a}</p>
               </details>
             ))}
           </div>
         </section>
 
-        {/* Service link CTA */}
+        {/* Service CTA */}
         {service && (
-          <div className="mt-12 rounded-2xl bg-ink-950 p-8 text-center">
-            <h2 className="font-display text-xl font-bold text-white">{t.resources.ctaTitle}</h2>
-            <p className="mt-2 text-sm text-ink-300">{t.resources.ctaSubtitle}</p>
-            <div className="mt-6 flex flex-wrap justify-center gap-3">
-              <a
-                href={site.whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-lg bg-[#25D366] px-5 py-2.5 text-sm font-bold text-white hover:opacity-90"
-              >
+          <div className="mt-16 bg-ink-950 p-10">
+            <span className="beam" aria-hidden="true" />
+            <h2 className="mt-5 font-display text-2xl font-bold tracking-tight text-white">
+              {t.resources.ctaTitle}
+            </h2>
+            <p className="mt-2 text-[15px] text-ink-400">{t.resources.ctaSubtitle}</p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Link href={p(`/services/${service.slug}`)} className="btn-gold">
+                {isZh ? service.nameZh : service.name} <span aria-hidden="true">→</span>
+              </Link>
+              <a href={site.whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn-outline-light">
                 {t.nav.whatsapp}
               </a>
-              <Link
-                href={p(`/services/${service.slug}`)}
-                className="rounded-lg bg-gold-400 px-5 py-2.5 text-sm font-bold text-ink-900 hover:bg-gold-300"
-              >
-                {isZh ? service.nameZh : service.name} →
-              </Link>
             </div>
           </div>
         )}
 
         {/* Disclaimer */}
-        <p className="mt-8 rounded-xl bg-ink-50 p-5 text-xs leading-relaxed text-ink-500">
+        <p className="mt-10 border-l-[3px] border-ink-200 pl-6 text-[13px] leading-relaxed text-ink-500">
           {t.resources.disclaimer}
         </p>
 
         {/* Related */}
         {related.length > 0 && (
-          <section className="mt-12" aria-labelledby="related-title">
-            <h2 id="related-title" className="font-display text-xl font-bold">{t.resources.relatedTitle}</h2>
-            <ul className="mt-4 space-y-3">
+          <section className="mt-16" aria-labelledby="related-title">
+            <p id="related-title" className="eyebrow">
+              {t.resources.relatedTitle}
+            </p>
+            <div className="mt-6">
               {related.map((r) => (
-                <li key={r!.slug}>
-                  <Link
-                    href={p(`/resources/${r!.cluster}/${r!.slug}`)}
-                    className="font-semibold text-gold-700 hover:text-gold-800"
-                  >
-                    {r!.h1} →
-                  </Link>
-                </li>
+                <Link key={r!.slug} href={p(`/resources/${r!.cluster}/${r!.slug}`)} className="group flex items-baseline justify-between gap-6 border-t border-ink-200 py-5">
+                  <span className="font-display text-lg font-bold tracking-tight text-ink-950 group-hover:underline group-hover:decoration-gold-400 group-hover:decoration-[3px] group-hover:underline-offset-4">
+                    {r!.h1}
+                  </span>
+                  <span aria-hidden="true" className="text-gold-500 transition-transform duration-200 group-hover:translate-x-1.5">→</span>
+                </Link>
               ))}
-            </ul>
+            </div>
           </section>
         )}
       </article>

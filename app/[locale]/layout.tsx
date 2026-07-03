@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import { Inter, Archivo } from "next/font/google";
 import { notFound } from "next/navigation";
 import "../globals.css";
 import Header from "@/components/Header";
@@ -15,9 +15,9 @@ const inter = Inter({
   display: "swap",
 });
 
-const jakarta = Plus_Jakarta_Sans({
+const archivo = Archivo({
   subsets: ["latin"],
-  variable: "--font-jakarta",
+  variable: "--font-archivo",
   display: "swap",
 });
 
@@ -45,12 +45,12 @@ export default async function LocaleLayout({
   const loc = locale as Locale;
 
   return (
-    <html lang={loc === "zh" ? "zh-MY" : "en-MY"} className={`${inter.variable} ${jakarta.variable}`}>
+    <html lang={loc === "zh" ? "zh-MY" : "en-MY"} className={`${inter.variable} ${archivo.variable}`}>
       <body>
         <JsonLd data={[organizationJsonLd(), ...localBusinessJsonLd()]} />
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-ink-900 focus:px-4 focus:py-2 focus:text-white"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:bg-ink-950 focus:px-4 focus:py-2 focus:text-white"
         >
           Skip to content
         </a>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
 import ContactForm from "@/components/ContactForm";
+import Reveal from "@/components/Reveal";
 import { getDict } from "@/lib/i18n";
 import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import { site, SITE_URL, type Locale } from "@/lib/site";
@@ -70,87 +71,85 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
         ]}
       />
 
-      <section className="bg-ink-950">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-          <h1 className="font-display text-4xl font-extrabold text-white sm:text-5xl">{t.contact.title}</h1>
-          <p className="mt-4 max-w-2xl text-lg text-ink-300">{t.contact.subtitle}</p>
-          <div className="mt-8 flex flex-wrap gap-4">
-            <a
-              href={site.whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-lg bg-[#25D366] px-6 py-3 font-bold text-white hover:opacity-90"
-            >
-              {t.nav.whatsapp} · {site.whatsapp}
-            </a>
-            <a
-              href={`tel:${site.phone.replace(/[^+\d]/g, "")}`}
-              className="rounded-lg border border-ink-600 px-6 py-3 font-semibold text-white hover:border-gold-400 hover:text-gold-400"
-            >
-              {site.phone}
-            </a>
-          </div>
+      <section className="relative overflow-hidden bg-ink-950">
+        <div aria-hidden="true" className="absolute right-0 top-0 h-[3px] w-1/3 bg-gold-400" />
+        <div className="mx-auto max-w-[1320px] px-5 py-24 sm:px-8">
+          <Reveal>
+            <p className="eyebrow-light !text-gold-400">{t.nav.contact}</p>
+            <h1 className="display-1 mt-6 max-w-4xl text-white">{t.contact.title}</h1>
+            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink-300">{t.contact.subtitle}</p>
+            <div className="mt-12 flex flex-wrap gap-4">
+              <a href={site.whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn-gold">
+                {t.nav.whatsapp} · {site.whatsapp}
+              </a>
+              <a href={`tel:${site.phone.replace(/[^+\d]/g, "")}`} className="btn-outline-light">
+                {site.phone}
+              </a>
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-5">
+      <section className="mx-auto grid max-w-[1320px] gap-16 px-5 py-20 sm:px-8 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
         {/* Form */}
-        <div className="lg:col-span-3">
-          <ContactForm locale={locale} />
+        <div>
+          <span className="beam" aria-hidden="true" />
+          <h2 className="mt-5 font-display text-2xl font-bold tracking-tight">
+            {isZh ? "发送信息" : "Send us a message"}
+          </h2>
+          <div className="mt-8">
+            <ContactForm locale={locale} />
+          </div>
         </div>
 
         {/* Office info */}
-        <div className="space-y-6 lg:col-span-2">
-          <div>
-            <h2 className="font-display text-xl font-bold">{t.contact.officesTitle}</h2>
+        <div>
+          <span className="beam" aria-hidden="true" />
+          <h2 className="mt-5 font-display text-2xl font-bold tracking-tight">{t.contact.officesTitle}</h2>
+          <div className="mt-8">
             {site.offices.map((office, i) => (
-              <address key={office.id} className="mt-4 rounded-2xl border border-ink-100 p-5 not-italic">
-                <p className="font-bold text-ink-900">
+              <address key={office.id} className="border-t border-ink-200 py-6 not-italic">
+                <p className="font-display text-[15px] font-bold text-ink-950">
                   {i === 0 ? t.contact.hqLabel : t.contact.branchLabel}
                 </p>
-                <p className="mt-1 text-sm text-ink-600">
+                <p className="mt-2 text-[14px] leading-relaxed text-ink-600">
                   {office.street}, {office.postcode} {office.city}, Malaysia
                 </p>
-                <a
-                  href={office.mapUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-2 inline-block text-sm font-semibold text-gold-700 hover:text-gold-800"
-                >
-                  Google Maps →
+                <a href={office.mapUrl} target="_blank" rel="noopener noreferrer" className="link-arrow mt-3 !text-[13px]">
+                  Google Maps <span className="arrow" aria-hidden="true">→</span>
                 </a>
               </address>
             ))}
-          </div>
-          <div className="rounded-2xl border border-ink-100 p-5">
-            <h2 className="font-display text-lg font-bold">{t.contact.hoursTitle}</h2>
-            <p className="mt-1 text-sm text-ink-600">{site.hours}</p>
-            <p className="mt-3 text-sm text-ink-600">
-              <a href={`mailto:${site.email}`} className="font-semibold text-gold-700 hover:text-gold-800">
-                {site.email}
-              </a>
-              <br />
-              {site.phone} · {site.phoneAlt}
-            </p>
+            <div className="border-t border-ink-200 py-6">
+              <p className="font-display text-[15px] font-bold text-ink-950">{t.contact.hoursTitle}</p>
+              <p className="mt-2 text-[14px] text-ink-600">{site.hours}</p>
+              <p className="mt-4 text-[14px] leading-relaxed text-ink-600">
+                <a href={`mailto:${site.email}`} className="font-bold text-ink-950 underline decoration-gold-400 decoration-2 underline-offset-4">
+                  {site.email}
+                </a>
+                <br />
+                {site.phone} · {site.phoneAlt}
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Map embeds */}
-      <section className="mx-auto grid max-w-7xl gap-6 px-4 pb-20 sm:px-6 md:grid-cols-2">
+      <section className="mx-auto grid max-w-[1320px] gap-px bg-ink-200 px-5 pb-24 sm:px-8 md:grid-cols-2">
         {site.offices.map((office, i) => (
-          <div key={office.id} className="overflow-hidden rounded-2xl border border-ink-100">
+          <div key={office.id} className="bg-white">
             <iframe
               src={office.mapEmbed}
               title={`${isZh ? office.nameZh : office.name} — Google Map`}
               width="100%"
-              height="320"
-              style={{ border: 0 }}
+              height="360"
+              style={{ border: 0, filter: "grayscale(1) contrast(1.05)" }}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               allowFullScreen
             />
-            <p className="px-4 py-3 text-sm font-semibold text-ink-800">
+            <p className="border border-t-0 border-ink-200 px-5 py-4 font-display text-[14px] font-bold text-ink-950">
               {i === 0 ? t.contact.hqLabel : t.contact.branchLabel}
             </p>
           </div>

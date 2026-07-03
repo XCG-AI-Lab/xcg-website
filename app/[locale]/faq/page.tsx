@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import CtaSection from "@/components/CtaSection";
+import Reveal from "@/components/Reveal";
 import { getDict } from "@/lib/i18n";
 import { pageMetadata, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 import { faqCategories } from "@/lib/faq";
@@ -52,56 +53,53 @@ export default async function FaqPage({ params }: { params: Promise<{ locale: st
         ]}
       />
 
-      <section className="bg-ink-950">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-          <h1 className="font-display text-4xl font-extrabold text-white sm:text-5xl">{t.faqPage.title}</h1>
-          <p className="mt-4 max-w-2xl text-lg text-ink-300">{t.faqPage.subtitle}</p>
+      <section className="relative overflow-hidden bg-ink-950">
+        <div aria-hidden="true" className="absolute right-0 top-0 h-[3px] w-1/3 bg-gold-400" />
+        <div className="mx-auto max-w-[1320px] px-5 py-24 sm:px-8">
+          <Reveal>
+            <p className="eyebrow-light !text-gold-400">{t.nav.faq}</p>
+            <h1 className="display-1 mt-6 max-w-4xl text-white">{t.faqPage.title}</h1>
+            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink-300">{t.faqPage.subtitle}</p>
+          </Reveal>
         </div>
       </section>
 
       {/* Category quick nav */}
-      <nav aria-label="FAQ categories" className="sticky top-16 z-30 border-b border-ink-100 bg-white/95 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl gap-2 overflow-x-auto px-4 py-3 sm:px-6">
+      <nav aria-label="FAQ categories" className="sticky top-[76px] z-30 border-b border-ink-200 bg-white">
+        <div className="mx-auto flex max-w-[1320px] gap-7 overflow-x-auto px-5 py-4 sm:px-8">
           {faqCategories.map((c) => (
-            <a
-              key={c.id}
-              href={`#${c.id}`}
-              className="shrink-0 rounded-full border border-ink-200 px-4 py-1.5 text-sm font-medium text-ink-700 hover:border-gold-400 hover:text-ink-900"
-            >
+            <a key={c.id} href={`#${c.id}`} className="nav-link shrink-0 whitespace-nowrap">
               {isZh ? c.nameZh : c.name}
             </a>
           ))}
         </div>
       </nav>
 
-      <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
+      <div className="mx-auto max-w-[900px] px-5 py-16 sm:px-8">
         {faqCategories.map((cat) => {
           const service = getService(cat.serviceSlug);
           return (
-            <section key={cat.id} id={cat.id} className="scroll-mt-32 py-8" aria-labelledby={`h-${cat.id}`}>
-              <h2 id={`h-${cat.id}`} className="font-display text-2xl font-bold">
+            <section key={cat.id} id={cat.id} className="scroll-mt-40 py-10" aria-labelledby={`h-${cat.id}`}>
+              <span className="beam" aria-hidden="true" />
+              <h2 id={`h-${cat.id}`} className="mt-5 font-display text-2xl font-bold tracking-tight sm:text-3xl">
                 {isZh ? cat.nameZh : cat.name}
               </h2>
-              <div className="mt-4 space-y-3">
+              <div className="mt-6 border-b border-ink-200">
                 {cat.items.map((item, i) => (
-                  <details key={i} className="group rounded-2xl border border-ink-100 open:border-gold-300 open:bg-gold-50/40">
-                    <summary className="flex cursor-pointer items-center justify-between gap-4 px-5 py-4 font-semibold text-ink-900 [&::-webkit-details-marker]:hidden">
+                  <details key={i} className="accordion">
+                    <summary>
                       {isZh ? item.qZh : item.q}
-                      <span aria-hidden="true" className="text-gold-600 transition-transform group-open:rotate-45">＋</span>
+                      <span className="acc-icon" aria-hidden="true">＋</span>
                     </summary>
-                    <p className="px-5 pb-5 text-sm leading-relaxed text-ink-700">{isZh ? item.aZh : item.a}</p>
+                    <p className="acc-body">{isZh ? item.aZh : item.a}</p>
                   </details>
                 ))}
               </div>
               {service && (
-                <p className="mt-4 text-sm">
-                  <Link
-                    href={`/${locale}/services/${service.slug}`}
-                    className="font-semibold text-gold-700 hover:text-gold-800"
-                  >
-                    {t.common.learnMore}: {isZh ? service.nameZh : service.name} →
-                  </Link>
-                </p>
+                <Link href={`/${locale}/services/${service.slug}`} className="link-arrow mt-6">
+                  {t.common.learnMore}: {isZh ? service.nameZh : service.name}
+                  <span className="arrow" aria-hidden="true">→</span>
+                </Link>
               )}
             </section>
           );

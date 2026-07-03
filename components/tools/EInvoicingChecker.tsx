@@ -119,17 +119,17 @@ export default function EInvoicingChecker({ locale }: { locale: Locale }) {
     <div>
       {questions.map((q, qi) => (
         <fieldset key={q.id} className="mt-6">
-          <legend className="font-semibold text-ink-900">
+          <legend className="font-display font-bold text-ink-950">
             {qi + 1}. {isZh ? q.zh : q.en}
           </legend>
           <div className="mt-3 grid gap-2 sm:grid-cols-2">
             {q.options.map((o) => (
               <label
                 key={o.value}
-                className={`cursor-pointer rounded-lg border px-4 py-2.5 text-sm ${
+                className={`cursor-pointer border px-4 py-3 text-sm transition-colors ${
                   answers[q.id] === o.value
-                    ? "border-gold-500 bg-gold-50 font-semibold text-ink-900"
-                    : "border-ink-200 text-ink-700 hover:border-gold-300"
+                    ? "border-ink-950 bg-ink-950 font-bold text-white"
+                    : "border-ink-300 text-ink-700 hover:border-ink-950"
                 }`}
               >
                 <input
@@ -154,15 +154,15 @@ export default function EInvoicingChecker({ locale }: { locale: Locale }) {
         type="button"
         disabled={!complete}
         onClick={() => setSubmitted(true)}
-        className="mt-8 rounded-lg bg-gold-400 px-6 py-3 font-bold text-ink-900 hover:bg-gold-300 disabled:opacity-50"
+        className="btn-gold mt-10 disabled:opacity-50"
       >
         {isZh ? "查看我的就绪度结果" : "Show my readiness result"}
       </button>
 
       {submitted && complete && (
         <div className="mt-8 space-y-6">
-          <div className={`rounded-2xl p-6 ${v.color}`}>
-            <p className="font-display text-xl font-bold">{isZh ? v.zh : v.en}</p>
+          <div className={`border-l-[3px] border-current p-7 ${v.color}`}>
+            <p className="font-display text-xl font-bold tracking-tight">{isZh ? v.zh : v.en}</p>
             <p className="mt-2 text-sm leading-relaxed">{isZh ? v.descZh : v.descEn}</p>
           </div>
 
@@ -177,8 +177,8 @@ export default function EInvoicingChecker({ locale }: { locale: Locale }) {
             }
             buttonLabel={isZh ? "发送我的清单" : "Send my checklist"}
           >
-            <div className="rounded-2xl border border-gold-300 bg-white p-6">
-              <p className="font-display font-bold text-ink-900">
+            <div className="border border-ink-200 p-8">
+              <p className="font-display text-lg font-bold tracking-tight text-ink-950">
                 {isZh ? "您的实施清单" : "Your implementation checklist"}
               </p>
               <ol className="mt-4 list-decimal space-y-2 pl-5 text-sm text-ink-700">
@@ -191,7 +191,7 @@ export default function EInvoicingChecker({ locale }: { locale: Locale }) {
               </ol>
               <p className="mt-4 text-sm text-ink-700">
                 {isZh ? "想要专家代办？" : "Want experts to handle it end to end?"}{" "}
-                <Link href={`/${locale}/services/e-invoicing`} className="font-bold text-gold-700 hover:text-gold-800">
+                <Link href={`/${locale}/services/e-invoicing`} className="font-bold text-ink-950 underline decoration-gold-400 decoration-2 underline-offset-4">
                   {isZh ? "了解XCG电子发票服务 →" : "See XCG's E-Invoicing Services →"}
                 </Link>
               </p>
